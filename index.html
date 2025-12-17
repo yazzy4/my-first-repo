@@ -56,8 +56,8 @@
 </head>
 <body>
   <div class="topbar">
-    <div class="logo">headspace-style</div>
-    <div class="cta">Try for free</div>
+    <div class="logo">Placeholder</div>
+    <div class="cta">Linkedin link</div>
   </div>
 
   <header class="hero">
@@ -92,4 +92,173 @@
     </div>
   </section>
 </body>
-</html>
+    <!-- Modal component: full-screen overlay + deep purple modal -->
+    <div id="modal-overlay" class="modal-overlay" aria-hidden="false">
+      <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+        <button id="modal-close" class="modal-close" aria-label="Close">✕</button>
+
+        <div class="modal-graphic" aria-hidden="true">
+          <!-- simple illustrative SVG: moon + cloud (placeholder colors) -->
+          <svg width="140" height="80" viewBox="0 0 140 80" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <defs>
+              <linearGradient id="g1" x1="0" x2="1">
+                <stop offset="0" stop-color="#ffd1f0"/>
+                <stop offset="1" stop-color="#b38bff"/>
+              </linearGradient>
+            </defs>
+            <rect rx="16" width="140" height="80" fill="url(#g1)" opacity="0.12" />
+            <g transform="translate(12,8)">
+              <circle cx="40" cy="28" r="18" fill="#ffd98a" />
+              <path d="M32 28c4 6 16 6 20 0" stroke="#7b4f1a" stroke-width="2" stroke-linecap="round" opacity="0.7"/>
+              <g transform="translate(70,6)">
+                <ellipse cx="18" cy="18" rx="22" ry="12" fill="#ffffff" opacity="0.9"/>
+              </g>
+            </g>
+          </svg>
+        </div>
+
+        <h2 id="modal-title" class="modal-title">Get Started</h2>
+        <p class="modal-sub">Tell us a bit about you to customize your experience.</p>
+
+        <div class="modal-cards" role="list">
+          <div class="modal-card enabled" data-index="1" role="listitem" aria-disabled="false">
+            <div class="modal-icon">💡</div>
+            <div class="modal-copy">
+              <h4>Skills and Background</h4>
+              <p>Tell us about your experience.</p>
+            </div>
+          </div>
+
+          <div class="modal-card disabled" data-index="2" role="listitem" aria-disabled="true">
+            <div class="modal-icon">🎯</div>
+            <div class="modal-copy">
+              <h4>Goals</h4>
+              <p>What you hope to achieve.</p>
+            </div>
+          </div>
+
+          <div class="modal-card disabled" data-index="3" role="listitem" aria-disabled="true">
+            <div class="modal-icon">⭐</div>
+            <div class="modal-copy">
+              <h4>Fun Facts</h4>
+              <p>Share something unique.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <style>
+      /* Modal overlay (hidden by default) */
+        .modal-overlay{position:fixed;inset:0;background:rgba(6,6,10,0.65);backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;z-index:1200;opacity:0;pointer-events:none;transition:opacity 320ms ease}
+        .modal-overlay.show{opacity:1;pointer-events:auto}
+
+        /* Modal (start slightly scaled & transparent for pop animation) */
+        .modal{width:min(900px,94%);max-width:960px;background:linear-gradient(180deg,#4b2b7f 0%,#2e0d45 100%);color:#fff;padding:28px 28px 36px;border-radius:18px;box-shadow:0 30px 80px rgba(0,0,0,0.6);position:relative;overflow:hidden;transform:translateY(10px) scale(.98);opacity:0;transition:transform 360ms cubic-bezier(.2,.9,.2,1),opacity 300ms ease}
+        .modal.pop{transform:translateY(0) scale(1);opacity:1}
+      .modal-close{position:absolute;right:18px;top:14px;background:transparent;border:0;color:rgba(255,255,255,0.9);font-size:20px;cursor:pointer;padding:8px;border-radius:8px}
+      .modal-close:hover{background:rgba(255,255,255,0.04)}
+
+      .modal-graphic{display:flex;justify-content:center;margin:6px 0 10px}
+      .modal-title{font-size:28px;margin:6px 0 6px;text-align:center;font-weight:700}
+      .modal-sub{margin:0 0 18px;text-align:center;color:rgba(255,255,255,0.85)}
+
+      .modal-cards{display:flex;flex-direction:column;gap:14px;align-items:center}
+      .modal-card{width:100%;max-width:640px;background:rgba(255,255,255,0.04);padding:14px 16px;border-radius:12px;display:flex;align-items:center;gap:16px;cursor:pointer;transition:all .22s ease}
+      .modal-card .modal-icon{width:64px;height:64px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:28px;background:rgba(255,255,255,0.06);flex:0 0 64px}
+      .modal-card h4{margin:0 0 6px;font-size:16px}
+      .modal-card p{margin:0;color:rgba(255,255,255,0.85);font-size:13px}
+
+      .modal-card:hover{transform:translateY(-4px);box-shadow:0 18px 40px rgba(0,0,0,0.35)}
+      .modal-card.disabled{opacity:0.45;pointer-events:none;filter:saturate(.6) brightness(.95)}
+      .modal-card.selected{outline:3px solid rgba(255,255,255,0.18);box-shadow:0 22px 50px rgba(0,0,0,0.45)}
+
+      /* small screens: tighten spacing */
+      @media (max-width:600px){
+        .modal{padding:20px;border-radius:14px}
+        .modal-title{font-size:22px}
+        .modal-card .modal-icon{width:56px;height:56px}
+      }
+    </style>
+
+    <script>
+      (function(){
+        const overlay = document.getElementById('modal-overlay');
+        const modalEl = document.querySelector('.modal');
+        const closeBtn = document.getElementById('modal-close');
+        const cards = Array.from(document.querySelectorAll('.modal-card'));
+
+        // Modal control helpers
+        function openModal(targetIndex = 1){
+          // reset cards
+          cards.forEach((c, i) => {
+            c.classList.remove('selected');
+            c.setAttribute('aria-pressed','false');
+            // enable cards up to targetIndex
+            if(i < targetIndex){
+              c.classList.remove('disabled');
+              c.setAttribute('aria-disabled','false');
+            } else {
+              c.classList.add('disabled');
+              c.setAttribute('aria-disabled','true');
+            }
+          });
+          // pre-select the target card if enabled
+          const target = cards[targetIndex-1];
+          if(target){
+            target.classList.add('selected');
+            target.setAttribute('aria-pressed','true');
+          }
+
+          overlay.classList.add('show');
+          setTimeout(()=> modalEl.classList.add('pop'), 80);
+        }
+
+        function closeModal(){
+          if(!overlay) return;
+          // hide with reverse animation instead of removing from DOM
+          modalEl.classList.remove('pop');
+          overlay.classList.remove('show');
+          // clear selected state after animation completes
+          setTimeout(() => {
+            cards.forEach(c => c.classList.remove('selected'));
+          }, 360);
+        }
+
+        // Close handler
+        closeBtn.addEventListener('click', closeModal);
+
+        // Hook up page selector pills to open modal for the matching action
+        const pills = Array.from(document.querySelectorAll('.selector .pill'));
+        const allowed = ['Skills and Background','Goals','Fun Facts'];
+        pills.forEach((pill, idx) => {
+          pill.addEventListener('click', (e) => {
+            const text = pill.textContent.trim();
+            const mapIndex = allowed.indexOf(text);
+            if(mapIndex !== -1){
+              // open modal and pre-select corresponding card (1-based)
+              openModal(mapIndex+1);
+            }
+          });
+        });
+
+        // Card click logic: selecting current enables next
+        cards.forEach((card, idx) => {
+          card.addEventListener('click', () => {
+            if(card.classList.contains('disabled')) return;
+            // mark selected
+            card.classList.add('selected');
+            card.setAttribute('aria-pressed', 'true');
+            // enable next card (if any)
+            const next = cards[idx+1];
+            if(next){
+              next.classList.remove('disabled');
+              next.setAttribute('aria-disabled','false');
+            }
+          });
+        });
+      })();
+    </script>
+
+  </body>
+  </html>
