@@ -3,114 +3,93 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Professional & Playful Profile</title>
-  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+  <title>Landing — Professional & Playful</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
   <style>
-    :root {
-      --color-primary: #007bff;
-      --color-secondary: #ffc107;
-      --color-text: #333;
-      --color-background: #f8f9fa;
-      --color-card: #fff;
-      --font-family: 'Lato', sans-serif;
+    :root{
+      --brand-blue:#2b9cff;
+      --bg-hero:#f7eee9;
+      --text:#222;
+      --muted:#6b6b6b;
+      --card-shadow: 0 8px 30px rgba(11,22,36,0.06);
     }
+    *{box-sizing:border-box}
+    body{font-family:'Poppins',system-ui,Segoe UI,Arial; margin:0;color:var(--text);background:#fff}
 
-    * { box-sizing: border-box; }
+    /* Top bar */
+    .topbar{background:var(--brand-blue);color:#fff;padding:10px 24px;display:flex;align-items:center;justify-content:space-between}
+    .topbar .logo{font-weight:700}
+    .topbar .cta{background:#fff;color:var(--brand-blue);padding:8px 12px;border-radius:20px;font-weight:600}
 
-    body {
-      font-family: var(--font-family);
-      background-color: var(--color-background);
-      color: var(--color-text);
-      margin: 0;
-      padding: 20px;
-      display: flex;
-      justify-content: center;
-    }
+    /* Hero */
+    .hero{background:var(--bg-hero);padding:64px 24px}
+    .hero .inner{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1fr 520px;gap:40px;align-items:center}
+    .hero h1{font-size:44px;margin:0 0 14px}
+    .hero p{margin:0 0 20px;color:var(--muted);font-size:18px}
+    .hero .buttons{display:flex;gap:12px}
+    .btn-primary{background:#111;color:#fff;padding:12px 18px;border-radius:999px;text-decoration:none}
+    .btn-outline{background:transparent;border:2px solid #111;padding:10px 16px;border-radius:999px;text-decoration:none;color:#111}
 
-    .container {
-      width: 100%;
-      max-width: 1100px;
-      background-color: var(--color-card);
-      padding: 48px;
-      border-radius: 15px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.08);
-    }
+    /* Illustration placeholder (right) */
+    .illustration{height:340px;background:linear-gradient(135deg,#fff 0%,#ffe8e0 100%);border-radius:20px;box-shadow:var(--card-shadow);display:flex;align-items:center;justify-content:center;font-size:40px}
 
-    h1, h2 { color: var(--color-primary); margin: 0 0 0.5em 0; font-weight: 700; }
-    h1 { font-size: 2rem; }
-    h2 { font-size: 1.4rem; border-bottom: 3px solid var(--color-secondary); display: inline-block; padding-bottom: 6px; margin-top: 30px; }
+    /* selector strip */
+    .selector{max-width:1200px;margin:28px auto;display:flex;gap:12px;justify-content:center}
+    .selector .pill{background:#fff;padding:14px 18px;border-radius:8px;box-shadow:0 6px 18px rgba(0,0,0,0.04);min-width:140px;text-align:center;color:var(--muted)}
 
-    .icon { margin-right: 10px; font-size: 1.1em; }
+    /* Feature cards row */
+    .features{max-width:1200px;margin:48px auto;display:grid;grid-template-columns:repeat(3,1fr);gap:20px;padding:0 24px}
+    .feature{padding:36px;border-radius:12px;color:#fff;min-height:220px;display:flex;flex-direction:column;justify-content:center;box-shadow:var(--card-shadow)}
+    .feature.blue{background:#2175d9}
+    .feature.yellow{background:#f2c94c;color:#222}
+    .feature.purple{background:#4b2b7f}
+    .feature h3{margin:0 0 8px}
+    .feature p{margin:0;color:rgba(255,255,255,0.9)}
 
-    .about-me p { font-size: 1.05rem; font-weight: 300; margin-bottom: 20px; }
-    .about-me strong { color: var(--color-primary); font-weight: 600; }
-
-    .ai-interest { color: #dc3545; }
-    .ios-bg { color: #6f42c1; }
-    .animal-love { color: #28a745; }
-
-    .skills-blurb { font-style: italic; margin-bottom: 20px; color: #6c757d; }
-
-    .core-skills ul { list-style: none; padding: 0; margin: 0; }
-    .core-skills li { background: #e9ecef; padding: 10px 15px; margin-bottom: 10px; border-radius: 8px; transition: transform 0.18s; }
-    .core-skills li:hover { transform: translateY(-3px); box-shadow: 0 6px 20px rgba(0,0,0,0.08); }
-    .core-skills strong { font-weight: 600; }
-    
-    /* Zig-zag layout styles */
-    .row { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; align-items: center; margin-bottom: 40px; }
-    .row .content { grid-column: 1; }
-    .row .media { grid-column: 2; display:flex; justify-content:center; }
-    .row .card { width: 260px; height: 260px; border-radius: 14px; background: linear-gradient(180deg,#ffffff,#f1f5f9); display:flex; align-items:center; justify-content:center; font-size:3.2rem; box-shadow: 0 8px 20px rgba(0,0,0,0.06); }
-    .row.row--reverse .content { grid-column: 2; }
-    .row.row--reverse .media { grid-column: 1; }
-
-    @media (max-width: 720px) {
-      .row { grid-template-columns: 1fr; }
-      .row .media { order: -1; margin-bottom: 12px; }
-      .row.row--reverse .media { order: -1; }
-      .row .content, .row .media { grid-column: auto; }
-      .card { width: 200px; height: 200px; font-size:1.9rem; }
+    @media (max-width:900px){
+      .hero .inner{grid-template-columns:1fr}
+      .illustration{height:240px}
+      .features{grid-template-columns:1fr}
+      .selector{flex-wrap:wrap}
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <!-- Row 1: About (media on the right) -->
-    <div class="row">
-      <div class="content">
-        <section class="about-me">
-          <h1><span class="icon">🧑‍💻</span> About Me</h1>
-          <p>
-            Hello! I'm a tech enthusiast who loves to build things and is perpetually curious about the future of intelligence. With a strong background in <strong class="ios-bg">iOS development</strong>, I enjoy turning complex ideas into intuitive, user-friendly mobile experiences. When I'm not diving into Swift code or exploring the latest advances in <strong class="ai-interest">AI</strong>, you can usually find me spending quality time with my favorite beings: <strong class="animal-love">all animals</strong> — whether a neighborhood dog, a curious cat, or a tiny squirrel. I believe in blending professional rigor with a light-hearted approach because life's too short not to enjoy the journey!
-          </p>
-        </section>
-      </div>
-      <div class="media">
-        <div class="card" aria-hidden="true">🐾</div>
-      </div>
-    </div>
-
-    <!-- Row 2: Skills (media on the left -> reversed) -->
-    <div class="row row--reverse">
-      <div class="media">
-        <div class="card" aria-hidden="true">🛠️</div>
-      </div>
-      <div class="content">
-        <section class="skills">
-          <h2><span class="icon">🛠️</span> Skills & Expertise</h2>
-          <p class="skills-blurb">I bring a unique blend of technical mastery and practical, real-world utility to the table. I'm adept at solving complex problems, whether they involve a tricky memory leak or a tangled leash.</p>
-
-          <div class="core-skills">
-            <ul>
-              <li><strong>iOS and Mobile Development:</strong> Expert-level proficiency in creating, testing, and deploying high-quality applications for Apple's ecosystem.</li>
-              <li><strong>Tech Support & Customer Service:</strong> Experienced in providing clear, patient, and effective technical guidance to users of all skill levels.</li>
-              <li><strong>Troubleshooting & Debugging:</strong> A knack for quickly identifying root causes and implementing robust solutions across software and hardware.</li>
-              <li><strong>Dog Walking and Animal Care:</strong> Reliable, attentive, and expert handling of pets, ensuring their safety, health, and happiness while on the job.</li>
-            </ul>
-          </div>
-        </section>
-      </div>
-    </div>
+  <div class="topbar">
+    <div class="logo">headspace-style</div>
+    <div class="cta">Try for free</div>
   </div>
+
+  <header class="hero">
+    <div class="inner">
+      <div>
+        <h1>Yaz Burrell</h1>
+        <p>About me</p>
+   
+      </div>
+      <div class="illustration" aria-hidden="true">📱</div>
+    </div>
+  </header>
+
+  <div class="selector">
+    <div class="pill">Skills and Background</div>
+    <div class="pill">Goals</div>
+    <div class="pill">Fun Facts</div>
+  </div>
+
+  <section class="features">
+    <div class="feature blue">
+      <h3>Placeholder Header</h3>
+      <p>Placeholder Subtext</p>
+    </div>
+    <div class="feature yellow">
+      <h3>Placeholder Header</h3>
+      <p>Placehholder Subtext</p>
+    </div>
+    <div class="feature purple">
+      <h3>Placeholder Header</h3>
+      <p>Placeholder Subtext</p>
+    </div>
+  </section>
 </body>
 </html>
