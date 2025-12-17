@@ -55,6 +55,22 @@
     .core-skills li { background: #e9ecef; padding: 10px 15px; margin-bottom: 10px; border-radius: 8px; transition: transform 0.18s; }
     .core-skills li:hover { transform: translateY(-3px); box-shadow: 0 6px 20px rgba(0,0,0,0.08); }
     .core-skills strong { font-weight: 600; }
+    
+    /* Zig-zag layout styles */
+    .row { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; align-items: center; margin-bottom: 40px; }
+    .row .content { grid-column: 1; }
+    .row .media { grid-column: 2; display:flex; justify-content:center; }
+    .row .card { width: 260px; height: 260px; border-radius: 14px; background: linear-gradient(180deg,#ffffff,#f1f5f9); display:flex; align-items:center; justify-content:center; font-size:3.2rem; box-shadow: 0 8px 20px rgba(0,0,0,0.06); }
+    .row.row--reverse .content { grid-column: 2; }
+    .row.row--reverse .media { grid-column: 1; }
+
+    @media (max-width: 720px) {
+      .row { grid-template-columns: 1fr; }
+      .row .media { order: -1; margin-bottom: 12px; }
+      .row.row--reverse .media { order: -1; }
+      .row .content, .row .media { grid-column: auto; }
+      .card { width: 200px; height: 200px; font-size:1.9rem; }
+    }
   </style>
 </head>
 <body>
@@ -96,22 +112,5 @@
       </div>
     </div>
   </div>
-  <style>
-    /* Zig-zag layout styles */
-    .row { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; align-items: center; margin-bottom: 40px; }
-    .row .content { grid-column: 1; }
-    .row .media { grid-column: 2; display:flex; justify-content:center; }
-    .row .card { width: 260px; height: 260px; border-radius: 14px; background: linear-gradient(180deg,#ffffff,#f1f5f9); display:flex; align-items:center; justify-content:center; font-size:3.2rem; box-shadow: 0 8px 20px rgba(0,0,0,0.06); }
-    .row.row--reverse .content { grid-column: 2; }
-    .row.row--reverse .media { grid-column: 1; }
-
-    @media (max-width: 720px) {
-      .row { grid-template-columns: 1fr; }
-      .row .media { order: -1; margin-bottom: 12px; }
-      .row.row--reverse .media { order: -1; }
-      .row .content, .row .media { grid-column: auto; }
-      .card { width: 200px; height: 200px; font-size:1.9rem; }
-    }
-  </style>
 </body>
 </html>
